@@ -1,0 +1,15 @@
+backup_base_dir: /backup
+
+backup_sources:
+  - name: nginx
+    host: 192.168.0.251
+    path: /var/www/html
+
+  - name: grafana
+    host: 192.168.0.253
+    path: /var/lib/grafana
+
+  - name: prometheus
+    host: 192.168.0.252
+    path: /var/lib/prometheus
+

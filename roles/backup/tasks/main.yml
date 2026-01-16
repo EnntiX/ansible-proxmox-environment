@@ -1,0 +1,42 @@
+---
+- name: Install rsync
+  apt:
+    name: rsync
+    state: present
+    update_cache: yes
+
+- name: Create backup base directory
+  file:
+    path: "{{ backup_base_dir }}"
+    state: directory
+    owner: ansible
+    group: ansible
+    mode: '0755'
+
+- name: Deploy backup script
+  template:
+    src: backup.sh
+    dest: /usr/local/bin/backup.sh
+    mode: '0755'
+
+- name: Configure daily backup cron job
+  cron:
+    name: "Daily infrastructure backup"
+    job: "/usr/local/bin/backup.sh"
+    hour: 2
+    minute: 0
+
+- name: Verify backup base directory exists
+  stat:
+    path: "{{ backup_base_dir }}"
+  register: backup_dir
+
+- name: Fail if backup base directory does not exist
+  fail:
+    msg: "Backup base directory {{ backup_base_dir }} does not exist!"
+  when: not backup_dir.stat.exists
+
+- name: Show backup base directory status
+  debug:
+    msg: "Backup base directory {{ backup_base_dir }} is present and ready"
+

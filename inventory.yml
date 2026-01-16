@@ -1,0 +1,18 @@
+all:
+  children:
+    web:
+      hosts:
+        nginx:
+          ansible_host: 192.168.0.251
+
+    monitoring:
+      hosts:
+        prometheus:
+          ansible_host: 192.168.0.252
+        grafana:
+          ansible_host: 192.168.0.253
+
+    backup_servers:
+      hosts:
+        backup:
+          ansible_host: 192.168.0.254

@@ -1,0 +1,19 @@
+user www-data;
+worker_processes auto;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    server {
+        listen {{ nginx_listen_port }};
+        server_name _;
+        
+        location / {
+            root {{ nginx_root }};
+            index index.html;
+        }
+    }
+}
+

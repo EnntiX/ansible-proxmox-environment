@@ -1,0 +1,42 @@
+---
+- name: Common configuration for all hosts(definiuje odwolanie do wszystkich uslug/kontenerow LXC)
+  hosts: all
+  become: true
+
+  roles:
+    - common
+
+- name: NGINX web server(odwolanie do NGINX)
+  hosts: web
+  become: true
+
+  roles:
+    - nginx
+
+- name: Prometheus monitoring server(Odwolanie do prometheusa)
+  hosts: prometheus
+  become: true
+
+  roles:
+    - prometheus
+
+- name: Grafana visualization server(Odwolanie do Grafany)
+  hosts: grafana
+  become: true
+
+  roles:
+    - grafana
+
+- name: Backup server(Odwolanie do serwera backupowego)
+  hosts: backup_servers
+  become: true
+
+  roles:
+    - backup
+
+- name: Node Exporter on all hosts(Odwolanie do zaciagania wszystkich danych z wszystkich LXC do prometheusa)
+  hosts: all
+  become: true
+
+  roles:
+    - node_exporter

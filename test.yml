@@ -1,0 +1,9 @@
+- name: Test playbook
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Install htop
+      apt:
+        name: htop
+        state: present
